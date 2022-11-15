@@ -5,6 +5,36 @@ Template Name: home
 ?>
 
 <?php get_header(); ?>
+<div class="section">
+    <div class="section-wrapper">
+        <h2>Слайдер тест </h2>
+        <div class="my-custom-slider">
+            <?php
+            global $post;
+            $myposts = get_posts([
+                'numberposts' => -1
+            ]);
+            if ($myposts) {
+                foreach ($myposts as $post) {
+                    setup_postdata($post);
+            ?>
+                    <div class="test-slider-item">
+                        <div style="width: 1200px; height: 300px; overflow: hidden;">
+                            <h2 style="display: inline-block;"><?php the_title(); ?></h2>
+                            <?php the_post_thumbnail(); ?>
+                        </div>
+                        <?php the_content(); ?>
+                    </div>
+            <?php
+                }
+            } else {
+                echo 'Постов не найдено';
+            }
+            wp_reset_postdata(); // Сбрасываем $post
+            ?>
+        </div>
+    </div>
+</div>
 <!-- Стоимость газа в ваш газгольдер сегодня -->
 <div class="section">
     <div class="section-wrapper">
@@ -226,4 +256,6 @@ Template Name: home
         </div>
     </div>
 </div>
+
+
 <?php get_footer(); ?>

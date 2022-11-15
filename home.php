@@ -5,6 +5,7 @@ Template Name: home
 ?>
 
 <?php get_header(); ?>
+
 <div class="section">
     <div class="section-wrapper">
         <h2>Слайдер тест </h2>
@@ -12,16 +13,27 @@ Template Name: home
             <?php
             global $post;
             $myposts = get_posts([
-                'numberposts' => -1
+                'numberposts' => -1,
+                'category' => 5,
+                'order'       => 'ASC',
             ]);
             if ($myposts) {
                 foreach ($myposts as $post) {
                     setup_postdata($post);
             ?>
                     <div class="test-slider-item">
-                        <div style="width: 1200px; height: 300px; overflow: hidden;">
-                            <h2 style="display: inline-block;"><?php the_title(); ?></h2>
-                            <?php the_post_thumbnail(); ?>
+                        <div style="width: 1200px; height: 300px; overflow: hidden;" class="test-slider-item-wrapper">
+                            <h2 style="display: inline-block;"><?php the_title('<h4>', '</h4>'); ?></h2>
+                            <?php
+                            $default_attr = array(
+                                'class' => "my-class",
+                            );
+
+                            the_post_thumbnail(
+                                array(1200, 300),
+                                $default_attr
+                            ); ?>
+                            <?php the_tags(); ?>
                         </div>
                         <?php the_content(); ?>
                     </div>
@@ -30,7 +42,7 @@ Template Name: home
             } else {
                 echo 'Постов не найдено';
             }
-            wp_reset_postdata(); // Сбрасываем $post
+            wp_reset_postdata();
             ?>
         </div>
     </div>
@@ -170,12 +182,39 @@ Template Name: home
     <div class="section-wrapper">
         <h2>Выберите свой объём Газовоза</h2>
         <div class="volumes">
-            <span class="volumes__btn volume__btn_active">Малый <br> 2000 л.</span>
+
+            <?php
+            global $post;
+            $myposts_volumes = get_posts([
+                'numberposts' => -1,
+                'category' => 8,
+                'order' => 'ASC',
+            ]);
+            if ($myposts_volumes) {
+                foreach ($myposts_volumes as $post) {
+                    setup_postdata($post);
+            ?>
+                    <span class="volumes__btn volume__btn_active">
+                        <a href="#?active='active'">
+                            <?php the_title(); ?>
+                        </a>
+                    </span>
+                    <?php // the_post_thumbnail(); 
+                    ?>
+            <?php
+                }
+            }
+            wp_reset_postdata(); // Сбрасываем $post
+            ?>
+            <!-- <span class="volumes__btn volume__btn_active">Малый <br> 2000 л.</span>
             <span class="volumes__btn ">Малый <br> 2000 л.</span>
             <span class="volumes__btn ">Малый <br> 2000 л.</span>
-            <span class="volumes__btn ">Малый <br> 2000 л.</span>
+            <span class="volumes__btn ">Малый <br> 2000 л.</span> -->
         </div>
         <div class="volume-banner">
+            <pre>
+            <?php print_r($_GET); ?>
+            </pre>
             <img src="<?php bloginfo('template_url'); ?>/images/track2.png" class="volume-banner__pic">
         </div>
         <div class="volume-order">
@@ -256,6 +295,5 @@ Template Name: home
         </div>
     </div>
 </div>
-
 
 <?php get_footer(); ?>

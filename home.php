@@ -5,7 +5,6 @@ Template Name: home
 ?>
 
 <?php get_header(); ?>
-
 <div class="section">
     <div class="section-wrapper">
         <h2>Слайдер тест </h2>

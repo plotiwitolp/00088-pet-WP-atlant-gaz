@@ -44,6 +44,7 @@ Template Name: home
             wp_reset_postdata();
             ?>
         </div>
+        <?php echo do_shortcode('[contact-form-7 id="121" title="Контактная форма 1"]'); ?>
     </div>
 </div>
 <!-- Стоимость газа в ваш газгольдер сегодня -->

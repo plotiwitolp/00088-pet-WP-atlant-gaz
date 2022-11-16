@@ -18,7 +18,7 @@
             <header>
                 <div class="logo-wrap">
                     <div class="logo-wrap__logo">
-                        <img src="<?php bloginfo('template_url'); ?>/images/Logo.png" alt="logo">
+                        <?php echo get_custom_logo(); ?>
                     </div>
                     <div class="logo-wrap__description">
                         <span><?php bloginfo('description'); ?></span>
